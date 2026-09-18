@@ -195,6 +195,58 @@ npm start
 
 ---
 
+## ☁️ Production Deployment on Render (Blueprint IaC)
+
+This repository includes a production-ready **Render Blueprint** (`render.yaml`) that configures and links both the backend Node service and frontend static site automatically.
+
+### 📋 1-Click Blueprint Setup Steps
+
+1. **Push your repository**: Ensure your code is on GitHub (e.g. `https://github.com/Umaharini102/smart-campus-management-system.git`).
+2. **Log into Render**: Go to [dashboard.render.com](https://dashboard.render.com).
+3. **Create Blueprint**:
+   * Click the **New +** button at top right and choose **Blueprint**.
+   * Connect your GitHub account and select `Umaharini102/smart-campus-management-system`.
+4. **Configure Environment Variables**:
+   * Render will automatically detect `render.yaml` and show:
+     * **`smart-campus-backend`** (Web Service, Node runtime, Health Check: `/api/health`)
+     * **`smart-campus-frontend`** (Static Site, React Vite build, SPA rewrite `/* -> /index.html`)
+   * Under `smart-campus-backend`, set:
+     * `MONGO_URI`: Your MongoDB Atlas connection URI (`mongodb+srv://<user>:<password>@cluster.mongodb.net/smart_campus_db?retryWrites=true&w=majority`).
+     * *(Optional)* Render will automatically generate a secure `JWT_SECRET` via `generateValue: true`.
+5. **Click "Apply"**:
+   * Render will automatically provision both services, build the frontend bundle, install backend packages, and link the backend API URL directly into the frontend build.
+
+### 🌐 Standalone Render Deployment (Alternative Manual Method)
+
+If you prefer to deploy the services individually without Blueprints:
+
+#### 1. Backend Web Service
+* **Type**: Web Service
+* **Root Directory**: `backend`
+* **Build Command**: `npm install`
+* **Start Command**: `npm start`
+* **Health Check Path**: `/api/health`
+* **Environment Variables**:
+  * `NODE_ENV`: `production`
+  * `PORT`: `5000`
+  * `MONGO_URI`: *Your MongoDB connection string*
+  * `JWT_SECRET`: *Your JWT secret key*
+  * `FRONTEND_URL`: `https://smart-campus-frontend.onrender.com`
+
+#### 2. Frontend Static Site
+* **Type**: Static Site
+* **Root Directory**: `frontend`
+* **Build Command**: `npm install && npm run build`
+* **Publish Directory**: `dist`
+* **Redirects / Rewrites**:
+  * Type: `Rewrite`
+  * Source: `/*`
+  * Destination: `/index.html`
+* **Environment Variables**:
+  * `VITE_API_URL`: `https://smart-campus-backend.onrender.com`
+
+---
+
 ## 👥 Demo Credentials
 
 For quick evaluation, click the **1-Click Demo Buttons** on the Login page or use these credentials:
