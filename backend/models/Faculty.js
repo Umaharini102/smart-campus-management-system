@@ -32,6 +32,22 @@ const facultySchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    country: {
+      type: String,
+      default: 'India',
+    },
+    specialization: {
+      type: String,
+      default: '',
+    },
+    bio: {
+      type: String,
+      default: '',
+    },
+    officeLocation: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,

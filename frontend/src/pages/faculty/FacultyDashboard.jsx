@@ -59,8 +59,10 @@ export default function FacultyDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
+      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+        {/* Subtle decorative visual glow */}
+        <div className="absolute right-0 top-0 w-64 h-full bg-gradient-to-l from-amber-500/5 via-blue-500/5 to-transparent pointer-events-none" />
+        <div className="relative z-10">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 mb-2">
             <Sparkles className="w-3.5 h-3.5" /> Academic Faculty Console
           </span>

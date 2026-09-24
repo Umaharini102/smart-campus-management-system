@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { DEFAULT_AVATAR } from '../services/api';
 import {
   GraduationCap,
   LayoutDashboard,
@@ -44,6 +45,7 @@ export default function Sidebar() {
 
   const facultyNav = [
     { to: '/faculty/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { to: '/faculty/profile', label: 'My Profile', icon: UserCheck },
     { to: '/faculty/subjects', label: 'My Subjects', icon: BookMarked },
     { to: '/faculty/students', label: 'Student Roster', icon: Users },
     { to: '/faculty/attendance', label: 'Attendance', icon: CalendarCheck },
@@ -63,6 +65,7 @@ export default function Sidebar() {
     { to: '/student/materials', label: 'Study Materials', icon: FolderDown },
     { to: '/student/notices', label: 'Notices', icon: Bell },
     { to: '/student/events', label: 'Events', icon: Calendar },
+    { to: '/student/reports', label: 'Academic Reports', icon: BarChart3 },
   ];
 
   const navItems = role === 'admin' ? adminNav : role === 'faculty' ? facultyNav : studentNav;
@@ -81,7 +84,7 @@ export default function Sidebar() {
           <GraduationCap className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="font-bold text-white tracking-tight leading-tight text-base">NexusCampus</h1>
+          <h1 className="font-bold text-white tracking-tight leading-tight text-base">Smart Campus</h1>
           <p className="text-xs text-blue-400 font-medium">{roleLabels[role] || 'Smart System'}</p>
         </div>
       </div>
@@ -116,9 +119,9 @@ export default function Sidebar() {
       <div className="p-4 border-t border-slate-800 bg-slate-950/40">
         <div className="flex items-center gap-3 mb-3">
           <img
-            src={user?.profileImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
+            src={user?.profileImage || DEFAULT_AVATAR}
             alt={user?.name}
-            className="w-9 h-9 rounded-full object-cover border border-slate-700"
+            className="w-9 h-9 rounded-full object-cover border border-slate-700 bg-slate-800"
           />
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-white truncate">{user?.name}</p>

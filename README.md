@@ -254,8 +254,8 @@ For quick evaluation, click the **1-Click Demo Buttons** on the Login page or us
 | Role | Email | Password | Access Level |
 |---|---|---|---|
 | **Admin** | `admin@campus.edu` | `Admin@123` | Full administrative control, all managers, reports |
-| **Faculty** | `elena.vance@campus.edu` | `Faculty@123` | Roll call attendance, create assignments, grade, materials |
-| **Student** | `aarav.sharma@campus.edu` | `Student@123` | Student dashboard, attendance gauge, results, submissions |
+| **Faculty** | `faculty@campus.edu` | `Faculty@123` | Roll call attendance, create assignments, grade, materials |
+| **Student** | `student@campus.edu` | `Student@123` | Student dashboard, attendance gauge, results, submissions |
 
 ---
 

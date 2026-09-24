@@ -6,8 +6,12 @@ const {
   createFaculty,
   updateFaculty,
   deleteFaculty,
+  getPublicFaculty,
 } = require('../controllers/facultyController');
 const { protect, authorizeRoles } = require('../middleware/authMiddleware');
+
+// Public faculty directory route (fictional demo profiles)
+router.get('/public', getPublicFaculty);
 
 router
   .route('/')

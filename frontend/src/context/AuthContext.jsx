@@ -30,8 +30,14 @@ export function AuthProvider({ children }) {
             localStorage.setItem('campus_user', JSON.stringify(res.user));
           }
         } catch (error) {
-          console.error('Session verification failed:', error);
-          logout();
+          console.warn('Session verification warning:', error.message);
+          // Only invalidate and clear session if server explicitly returns Unauthorized / Forbidden
+          if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            logout();
+          } else {
+            // Keep existing cached user session during cold-start or temporary network disruption
+            console.info('Retaining cached credentials while backend awakens.');
+          }
         }
       }
       setLoading(false);
@@ -70,7 +76,7 @@ export function AuthProvider({ children }) {
         setUser(res.user);
         localStorage.setItem('campus_token', res.token);
         localStorage.setItem('campus_user', JSON.stringify(res.user));
-        showToast('Registration successful! Welcome to NexusCampus.', 'success');
+        showToast('Registration successful! Welcome to Smart Campus Management System.', 'success');
         return res.user;
       }
     } catch (error) {

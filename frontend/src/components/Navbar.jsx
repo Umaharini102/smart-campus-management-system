@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Bell, User, CheckCheck, Sparkles } from 'lucide-react';
 import { notificationService } from '../services/dataServices';
+import { getFileUrl, DEFAULT_AVATAR } from '../services/api';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
@@ -104,17 +105,21 @@ export default function Navbar() {
         </div>
 
         {/* Profile Link */}
-        <div className="flex items-center gap-2.5 pl-2 border-l border-slate-200">
+        <Link
+          to={role === 'student' ? '/student/profile' : role === 'faculty' ? '/faculty/profile' : '/admin/dashboard'}
+          className="flex items-center gap-2.5 pl-2 border-l border-slate-200 hover:opacity-80 transition-opacity"
+          title="View Profile"
+        >
           <img
-            src={user?.profileImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
+            src={user?.profileImage || DEFAULT_AVATAR}
             alt={user?.name}
-            className="w-8 h-8 rounded-full object-cover border border-slate-200"
+            className="w-8 h-8 rounded-full object-cover border border-slate-200 bg-slate-100"
           />
           <div className="hidden md:block text-left leading-tight">
             <span className="text-xs font-bold text-slate-800 block">{user?.name}</span>
             <span className="text-[10px] text-slate-500 block truncate max-w-[120px]">{user?.email}</span>
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );

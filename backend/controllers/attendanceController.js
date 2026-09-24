@@ -133,9 +133,19 @@ const updateAttendance = async (req, res) => {
 // @access  Private
 const getStudentAttendance = async (req, res) => {
   try {
-    const student = await Student.findOne({
-      $or: [{ _id: req.params.studentId }, { studentId: req.params.studentId }, { userId: req.params.studentId }],
-    });
+    const mongoose = require('mongoose');
+    let query;
+    if (mongoose.Types.ObjectId.isValid(req.params.studentId)) {
+      query = {
+        $or: [{ _id: req.params.studentId }, { studentId: req.params.studentId }, { userId: req.params.studentId }],
+      };
+    } else {
+      query = {
+        $or: [{ studentId: req.params.studentId }, { rollNumber: req.params.studentId }],
+      };
+    }
+
+    const student = await Student.findOne(query);
 
     if (!student) {
       return res.status(404).json({ success: false, message: 'Student not found' });

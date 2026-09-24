@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { assignmentService, subjectService } from '../../services/dataServices';
+import { getFileUrl } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/Modal';
-import { FileText, Plus, Eye, CheckCircle2, Calendar, Award } from 'lucide-react';
+import { FileText, Plus, Eye, CheckCircle2, Calendar, Award, Download } from 'lucide-react';
 
 export default function FacultyAssignments() {
   const [assignments, setAssignments] = useState([]);
@@ -270,6 +271,18 @@ export default function FacultyAssignments() {
                     <h4 className="font-bold text-slate-900">{sub.studentId?.userId?.name || 'Student'}</h4>
                     <p className="text-slate-500 text-[11px]">Roll: {sub.studentId?.rollNumber}</p>
                     {sub.comments && <p className="text-slate-600 italic mt-1">"{sub.comments}"</p>}
+                    {sub.file && (
+                      <div className="mt-1">
+                        <a
+                          href={getFileUrl(sub.file)}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 hover:bg-blue-100 transition-colors"
+                        >
+                          <Download className="w-3 h-3" /> View Submitted File
+                        </a>
+                      </div>
+                    )}
                     <span className="text-[10px] text-slate-400 block mt-1">
                       Submitted: {new Date(sub.submittedAt).toLocaleString()}
                     </span>

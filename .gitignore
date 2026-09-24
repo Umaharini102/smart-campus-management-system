@@ -9,6 +9,9 @@ node_modules/
 backend/.env
 frontend/.env
 *.local
+!.env.example
+!*.env.example
+!**/.env.example
 
 # Production Build
 dist/

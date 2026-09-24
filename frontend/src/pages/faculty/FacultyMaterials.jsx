@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { materialService, subjectService } from '../../services/dataServices';
+import { getFileUrl } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/Modal';
 import { FolderDown, Plus, Trash2, FileText, Download } from 'lucide-react';
@@ -126,7 +127,7 @@ export default function FacultyMaterials() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-slate-500">{m.subjectId?.name}</span>
                 <a
-                  href={`http://localhost:5000${m.file}`}
+                  href={getFileUrl(m.file)}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-1 font-semibold text-blue-600 hover:underline"

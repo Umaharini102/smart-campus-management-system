@@ -2,6 +2,7 @@ const Assignment = require('../models/Assignment');
 const Submission = require('../models/Submission');
 const Student = require('../models/Student');
 const Faculty = require('../models/Faculty');
+const Notification = require('../models/Notification');
 
 // @desc    Get all assignments
 // @route   GET /api/assignments
@@ -20,6 +21,26 @@ const getAllAssignments = async (req, res) => {
         populate: { path: 'userId', select: 'name email' },
       })
       .sort({ dueDate: 1 });
+
+    // If user is a student, attach their submission to each assignment
+    if (req.user && req.user.role === 'student') {
+      const student = await Student.findOne({ userId: req.user._id });
+      if (student) {
+        const studentSubmissions = await Submission.find({ studentId: student._id });
+        const subMap = {};
+        studentSubmissions.forEach((s) => {
+          subMap[s.assignmentId.toString()] = s;
+        });
+
+        const enhanced = assignments.map((a) => {
+          const obj = a.toObject();
+          obj.mySubmission = subMap[a._id.toString()] || null;
+          return obj;
+        });
+
+        return res.status(200).json({ success: true, count: enhanced.length, assignments: enhanced });
+      }
+    }
 
     return res.status(200).json({ success: true, count: assignments.length, assignments });
   } catch (error) {
@@ -187,6 +208,23 @@ const submitAssignment = async (req, res) => {
       });
     }
 
+    // Trigger Notification for Faculty
+    if (assignment.facultyId) {
+      try {
+        const fac = await Faculty.findById(assignment.facultyId);
+        if (fac && fac.userId) {
+          await Notification.create({
+            userId: fac.userId,
+            title: 'New Assignment Submission',
+            message: `${req.user.name} submitted coursework for "${assignment.title}".`,
+            type: 'info',
+          });
+        }
+      } catch (notifErr) {
+        console.error('Notification dispatch error:', notifErr.message);
+      }
+    }
+
     return res.status(200).json({
       success: true,
       message: 'Assignment submitted successfully',
@@ -215,6 +253,24 @@ const gradeSubmission = async (req, res) => {
 
     if (!submission) {
       return res.status(404).json({ success: false, message: 'Submission not found' });
+    }
+
+    // Trigger Notification for Student
+    try {
+      const populatedSub = await Submission.findById(submission._id)
+        .populate({ path: 'studentId', select: 'userId' })
+        .populate('assignmentId', 'title');
+
+      if (populatedSub?.studentId?.userId) {
+        await Notification.create({
+          userId: populatedSub.studentId.userId,
+          title: 'Coursework Graded',
+          message: `Your solution for "${populatedSub.assignmentId?.title || 'Assignment'}" has been evaluated: ${marks} marks.`,
+          type: 'success',
+        });
+      }
+    } catch (notifErr) {
+      console.error('Grade notification error:', notifErr.message);
     }
 
     return res.status(200).json({ success: true, message: 'Submission graded', submission });

@@ -40,83 +40,83 @@ const seedDatabase = async () => {
     await Material.deleteMany();
     console.log('🧹 Purged existing collections.');
 
-    // 1. Create Core Users
-    console.log('👤 Creating Users...');
+    // 1. Create Core Users (Generic Placeholder Identities)
+    console.log('👤 Creating Generic Users...');
     const adminUser = await User.create({
-      name: 'Campus Provost & Admin',
+      name: 'Admin User',
       email: 'admin@campus.edu',
       password: 'Admin@123',
       role: 'admin',
-      phone: '+1 (555) 019-9001',
-      profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0001',
+      profileImage: '',
     });
 
     const facultyUser1 = await User.create({
-      name: 'Dr. Elena Vance',
-      email: 'elena.vance@campus.edu',
+      name: 'Demo Faculty',
+      email: 'faculty@campus.edu',
       password: 'Faculty@123',
       role: 'faculty',
-      phone: '+1 (555) 019-9002',
-      profileImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0002',
+      profileImage: '',
     });
 
     const facultyUser2 = await User.create({
-      name: 'Prof. Marcus Thorne',
-      email: 'marcus.thorne@campus.edu',
+      name: 'Faculty Member',
+      email: 'faculty2@campus.edu',
       password: 'Faculty@123',
       role: 'faculty',
-      phone: '+1 (555) 019-9003',
-      profileImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0003',
+      profileImage: '',
     });
 
     const studentUser1 = await User.create({
-      name: 'Aarav Sharma',
-      email: 'aarav.sharma@campus.edu',
+      name: 'Demo Student',
+      email: 'student@campus.edu',
       password: 'Student@123',
       role: 'student',
-      phone: '+1 (555) 019-9004',
-      profileImage: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0004',
+      profileImage: '',
     });
 
     const studentUser2 = await User.create({
-      name: 'Maya Patel',
-      email: 'maya.patel@campus.edu',
+      name: 'Student Two',
+      email: 'student2@campus.edu',
       password: 'Student@123',
       role: 'student',
-      phone: '+1 (555) 019-9005',
-      profileImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0005',
+      profileImage: '',
     });
 
     const studentUser3 = await User.create({
-      name: 'Liam O Connor',
-      email: 'liam.oconnor@campus.edu',
+      name: 'Student Three',
+      email: 'student3@campus.edu',
       password: 'Student@123',
       role: 'student',
-      phone: '+1 (555) 019-9006',
-      profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 000-0006',
+      profileImage: '',
     });
 
-    // 2. Create Departments
+    // 2. Create Departments (Generic Names)
     console.log('🏛️ Creating Departments...');
     const deptCS = await Department.create({
       name: 'Computer Science & Engineering',
       code: 'CSE',
       description: 'Computing systems, algorithms, cloud, and software engineering.',
-      hod: 'Dr. Robert Jenkins',
+      hod: 'Faculty Head - CSE',
     });
 
     const deptAI = await Department.create({
       name: 'Artificial Intelligence & Data Science',
       code: 'AIDS',
-      description: 'Machine learning, generative AI, deep neural networks, and computer vision.',
-      hod: 'Dr. Elena Vance',
+      description: 'Machine learning, generative models, deep neural networks, and data science.',
+      hod: 'Demo Faculty',
     });
 
     const deptRobotics = await Department.create({
       name: 'Robotics & Automation',
       code: 'ROB',
-      description: 'Mechatronics, autonomous kinematics, SLAM, and embedded IoT.',
-      hod: 'Dr. Aisha Al-Mansoor',
+      description: 'Mechatronics, autonomous kinematics, control systems, and embedded IoT.',
+      hod: 'Faculty Head - Robotics',
     });
 
     // 3. Create Courses
@@ -158,7 +158,7 @@ const seedDatabase = async () => {
     // 5. Create Subjects
     console.log('📚 Creating Subjects...');
     const subDL = await Subject.create({
-      name: 'Deep Learning & Transformers',
+      name: 'Deep Learning & Neural Networks',
       code: 'CS-501',
       courseId: courseBTechAI._id,
       facultyId: faculty1._id,
@@ -191,7 +191,7 @@ const seedDatabase = async () => {
     faculty2.subjects = [subCloud._id, subOS._id];
     await faculty2.save();
 
-    // 6. Create Students
+    // 6. Create Students (Generic Roll Numbers and Dorms)
     console.log('🎓 Creating Student Profiles...');
     const student1 = await Student.create({
       studentId: 'STU-2024-001',
@@ -203,7 +203,7 @@ const seedDatabase = async () => {
       section: 'A',
       rollNumber: '24AI001',
       phone: studentUser1.phone,
-      address: 'Titan Hall, Room 304, Campus Residence',
+      address: 'Campus Hostel Block A, Room 304',
     });
 
     const student2 = await Student.create({
@@ -216,7 +216,7 @@ const seedDatabase = async () => {
       section: 'A',
       rollNumber: '24AI002',
       phone: studentUser2.phone,
-      address: 'Helios Wing, Room 112',
+      address: 'Campus Hostel Block B, Room 112',
     });
 
     const student3 = await Student.create({
@@ -229,7 +229,7 @@ const seedDatabase = async () => {
       section: 'B',
       rollNumber: '24CS015',
       phone: studentUser3.phone,
-      address: 'Day Scholar, Metro City',
+      address: 'Campus Hostel Block C, Room 205',
     });
 
     // 7. Create Timetable
@@ -241,7 +241,7 @@ const seedDatabase = async () => {
         period: 1,
         subjectId: subDL._id,
         facultyId: faculty1._id,
-        classroom: 'Smart Hall Alpha (SH-101)',
+        classroom: 'Lecture Hall 101',
         startTime: '09:00 AM',
         endTime: '10:15 AM',
       });
@@ -250,7 +250,7 @@ const seedDatabase = async () => {
         period: 2,
         subjectId: subCloud._id,
         facultyId: faculty2._id,
-        classroom: 'Cyber Cloud Lab 3 (CL-302)',
+        classroom: 'Computer Lab 302',
         startTime: '10:30 AM',
         endTime: '11:45 AM',
       });
@@ -259,7 +259,7 @@ const seedDatabase = async () => {
         period: 3,
         subjectId: subOS._id,
         facultyId: faculty2._id,
-        classroom: 'Academic Block B (AB-204)',
+        classroom: 'Academic Hall 204',
         startTime: '01:30 PM',
         endTime: '02:45 PM',
       });
@@ -314,14 +314,14 @@ const seedDatabase = async () => {
       description: 'Construct a multi-head self-attention module from scratch and test on token embeddings.',
       subjectId: subDL._id,
       facultyId: faculty1._id,
-      dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+      dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
       totalMarks: 100,
       attachment: '',
     });
 
     const assign2 = await Assignment.create({
       title: 'Assignment 2: Distributed Microservices Deployment with Docker',
-      description: 'Deploy a resilient microservices architecture with Kubernetes ingress and redis caching.',
+      description: 'Deploy a resilient microservices architecture with containerization and caching.',
       subjectId: subCloud._id,
       facultyId: faculty2._id,
       dueDate: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
@@ -353,8 +353,8 @@ const seedDatabase = async () => {
     });
 
     await Notice.create({
-      title: 'Annual Nexus Hackathon 2026 ($25,000 Prize Pool)',
-      description: 'Registration is now open for the 48-hour student hackathon. Themes include AI Agents and Autonomous Robotics.',
+      title: 'Annual Campus Hackathon - Registration Open',
+      description: 'Registration is now open for the 48-hour student hackathon. Themes include Intelligent Systems and Autonomous Applications.',
       createdBy: facultyUser1._id,
       targetRole: 'student',
       priority: 'Medium',
@@ -363,7 +363,7 @@ const seedDatabase = async () => {
 
     await Notice.create({
       title: 'Faculty Academic Senate & Curriculum Review Meeting',
-      description: 'All department heads and professors are invited to the senate hall for the Fall curriculum upgrade.',
+      description: 'All department heads and faculty members are invited to the senate hall for the curriculum review meeting.',
       createdBy: adminUser._id,
       targetRole: 'faculty',
       priority: 'Urgent',
@@ -373,21 +373,21 @@ const seedDatabase = async () => {
     // 11. Create Events
     console.log('🎉 Creating Events...');
     await Event.create({
-      title: 'Nexus Annual Tech Fest & AI Expo 2026',
-      description: 'Keynote speakers from Google DeepMind and robotics showcases.',
+      title: 'Annual Campus Tech Fest & Technology Expo',
+      description: 'Keynote presentations, project exhibitions, and technology showcases.',
       date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
       time: '10:00 AM - 05:00 PM',
-      location: 'Central University Auditorium',
+      location: 'Campus Main Auditorium',
       category: 'Festival',
       createdBy: adminUser._id,
     });
 
     await Event.create({
       title: 'Campus Placement & Career Fair',
-      description: 'Over 40 technology enterprises conducting on-campus recruitment and internships.',
+      description: 'Technology enterprises conducting on-campus recruitment and internships.',
       date: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000),
       time: '09:00 AM - 04:00 PM',
-      location: 'Turing Convention Center',
+      location: 'Campus Convention Center',
       category: 'Placement',
       createdBy: adminUser._id,
     });
@@ -397,7 +397,7 @@ const seedDatabase = async () => {
     await Notification.create({
       userId: studentUser1._id,
       title: 'Assignment Graded',
-      message: 'Dr. Elena Vance graded your Assignment 1: 95/100.',
+      message: 'Faculty evaluated your Assignment 1: 95/100.',
       type: 'success',
       isRead: false,
     });
@@ -405,7 +405,7 @@ const seedDatabase = async () => {
     await Notification.create({
       userId: studentUser1._id,
       title: 'Exam Schedule Notice',
-      message: 'Mid-term schedule published for Fall 2026.',
+      message: 'Mid-term schedule published for Fall Semester.',
       type: 'info',
       isRead: false,
     });
@@ -413,7 +413,7 @@ const seedDatabase = async () => {
     await Notification.create({
       userId: facultyUser1._id,
       title: 'New Assignment Submission',
-      message: 'Aarav Sharma submitted Self-Attention in PyTorch.',
+      message: 'Demo Student submitted Assignment 1.',
       type: 'info',
       isRead: false,
     });
@@ -422,9 +422,9 @@ const seedDatabase = async () => {
     console.log('✅ DATABASE SEEDING COMPLETED SUCCESSFULLY!');
     console.log('======================================================');
     console.log('DEMO ACCOUNTS CREATED:');
-    console.log('  1. ADMIN:   admin@campus.edu        / Admin@123');
-    console.log('  2. FACULTY: elena.vance@campus.edu  / Faculty@123');
-    console.log('  3. STUDENT: aarav.sharma@campus.edu / Student@123');
+    console.log('  1. ADMIN:   admin@campus.edu   / Admin@123');
+    console.log('  2. FACULTY: faculty@campus.edu / Faculty@123');
+    console.log('  3. STUDENT: student@campus.edu / Student@123');
     console.log('======================================================\n');
 
     process.exit(0);

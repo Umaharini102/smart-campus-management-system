@@ -41,14 +41,21 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col justify-center py-12 px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-8">
-        <Link to="/" className="inline-flex items-center gap-2 mb-3">
+        <Link to="/" className="inline-flex items-center gap-2.5 mb-3">
           <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-600/30">
             <GraduationCap className="w-6 h-6" />
           </div>
-          <span className="font-extrabold text-2xl text-slate-900 tracking-tight">NexusCampus</span>
+          <div>
+            <span className="font-extrabold text-2xl text-slate-900 tracking-tight block leading-tight">
+              Smart Campus
+            </span>
+            <span className="text-[10px] font-semibold text-blue-600 tracking-wider uppercase block text-left">
+              Management System
+            </span>
+          </div>
         </Link>
-        <h2 className="text-xl font-bold text-slate-900">Sign in to your academic account</h2>
-        <p className="text-xs text-slate-500 mt-1">Select your role or enter institutional credentials</p>
+        <h2 className="text-xl font-bold text-slate-900">Sign in to your account</h2>
+        <p className="text-xs text-slate-500 mt-1">Enter your institutional credentials or select a demo role</p>
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -110,8 +117,11 @@ export default function Login() {
 
           {/* Quick Demo Credentials */}
           <div className="mt-8 pt-6 border-t border-slate-100">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider text-center mb-3">
-              One-Click Demo Credentials
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider text-center mb-1">
+              Generic System Demo Accounts
+            </p>
+            <p className="text-[11px] text-slate-400 text-center mb-3">
+              Fictional role test accounts for quick UI evaluation
             </p>
             <div className="grid grid-cols-3 gap-2">
               <button
@@ -125,7 +135,7 @@ export default function Login() {
 
               <button
                 type="button"
-                onClick={() => handleQuickDemo('elena.vance@campus.edu', 'Faculty@123')}
+                onClick={() => handleQuickDemo('faculty@campus.edu', 'Faculty@123')}
                 className="p-2 text-center rounded-lg border border-amber-200 bg-amber-50/60 hover:bg-amber-100 transition-colors"
               >
                 <UserCheck className="w-4 h-4 text-amber-700 mx-auto mb-1" />
@@ -134,7 +144,7 @@ export default function Login() {
 
               <button
                 type="button"
-                onClick={() => handleQuickDemo('aarav.sharma@campus.edu', 'Student@123')}
+                onClick={() => handleQuickDemo('student@campus.edu', 'Student@123')}
                 className="p-2 text-center rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-100 transition-colors"
               >
                 <Users className="w-4 h-4 text-blue-700 mx-auto mb-1" />

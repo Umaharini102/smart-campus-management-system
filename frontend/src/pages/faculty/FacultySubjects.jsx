@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { subjectService } from '../../services/dataServices';
+import { useAuth } from '../../context/AuthContext';
 import { BookMarked, Users, Award, BookOpen } from 'lucide-react';
 
 export default function FacultySubjects() {
+  const { user } = useAuth();
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const res = await subjectService.getAll();
+        const facultyId = user?.profile?._id;
+        const res = await subjectService.getAll(facultyId ? { facultyId } : {});
         setSubjects(res.subjects || []);
       } catch (err) {
         console.error(err);
@@ -18,7 +21,7 @@ export default function FacultySubjects() {
       }
     };
     fetchSubjects();
-  }, []);
+  }, [user]);
 
   return (
     <div className="space-y-6">

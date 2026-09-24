@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { facultyService, departmentService, subjectService } from '../../services/dataServices';
+import { DEFAULT_AVATAR } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import Modal from '../../components/Modal';
 import {
@@ -198,9 +199,9 @@ export default function ManageFaculty() {
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
                         <img
-                          src={fac.userId?.profileImage || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80'}
+                          src={fac.userId?.profileImage || DEFAULT_AVATAR}
                           alt={fac.userId?.name}
-                          className="w-8 h-8 rounded-full object-cover border border-slate-200"
+                          className="w-8 h-8 rounded-full object-cover border border-slate-200 bg-slate-100"
                         />
                         <div>
                           <span className="font-bold text-slate-900 block">{fac.userId?.name}</span>

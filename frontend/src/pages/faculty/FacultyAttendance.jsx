@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { attendanceService, subjectService, studentService } from '../../services/dataServices';
+import { DEFAULT_AVATAR } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { CalendarCheck, UserCheck, CheckCircle2, XCircle, Save } from 'lucide-react';
 
@@ -179,9 +180,9 @@ export default function FacultyAttendance() {
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-3">
                           <img
-                            src={stu.userId?.profileImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                            src={stu.userId?.profileImage || DEFAULT_AVATAR}
                             alt={stu.userId?.name}
-                            className="w-8 h-8 rounded-full object-cover border border-slate-200"
+                            className="w-8 h-8 rounded-full object-cover border border-slate-200 bg-slate-100"
                           />
                           <div>
                             <span className="font-bold text-slate-900 block">{stu.userId?.name}</span>

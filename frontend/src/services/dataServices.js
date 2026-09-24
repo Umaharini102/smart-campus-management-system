@@ -12,6 +12,7 @@ export const studentService = {
 // Faculty Service
 export const facultyService = {
   getAll: async (params) => (await API.get('/faculty', { params })).data,
+  getPublic: async (params) => (await API.get('/faculty/public', { params })).data,
   getById: async (id) => (await API.get(`/faculty/${id}`)).data,
   create: async (data) => (await API.post('/faculty', data)).data,
   update: async (id, data) => (await API.put(`/faculty/${id}`, data)).data,
